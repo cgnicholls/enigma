@@ -41,6 +41,17 @@ class EnigmaTests(unittest.TestCase):
         self.failUnless(enigma.increment_letter("Y")=="Z")
         self.failUnless(enigma.increment_letter("Z")=="A")
 
+    def test_apply_rotors(self):
+        enigma = Enigma("123", "AAA")
+        self.failUnless(enigma.apply_rotors(1,2,3,"A")=="U")
+
+    def test_cipher(self):
+        enigma = Enigma("123", "AAA", ["AB", "CD"])
+        self.failUnless(enigma.cipher("B")=="U")
+
+        enigma = Enigma("123", "AAA", ["AB", "CD", "UV"])
+        self.failUnless(enigma.cipher("B")=="V")
+
 def main():
     unittest.main()
 
