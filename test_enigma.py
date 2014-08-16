@@ -98,6 +98,20 @@ class EnigmaTests(unittest.TestCase):
         enigma = Enigma(rotor_order="453", ring_setting="HYS", rotor_pos="CTY", plugs=["AB", "CD", "RQ", "FO", "HM", "JX", "UP", "ZS"])
         self.assertTrue(enigma.cipher("J")=="W")
 
+    def test_encrypt(self):
+        # not a formal test, just to check the print function looks right
+        enigma = Enigma(rotor_order="523", ring_setting="DSW", rotor_pos="BUA")
+        self.assertTrue(enigma.encrypt("MNXSNRBKNQ")=="HELLOWORLD")
+
+        
+        enigma = Enigma(rotor_order="431", ring_setting="TRW", rotor_pos="GQL", plugs = ["AD", "BT", "CZ", "DA", "FX", "GI", "HM", "JO", "KU", "LQ", "NV"])
+        self.assertTrue(enigma.encrypt("HELLOWORLD")=="RSYXYIJOBG")
+
+
+        enigma = Enigma(rotor_order="431", ring_setting="TRW", rotor_pos="GRV", plugs = ["AD", "BT", "CZ", "DA", "FX", "GI", "HM", "JO", "KU", "LQ", "NV"])
+        self.assertTrue(enigma.encrypt("HELLOWORLDTHISISANENIGMAMACHINEEMULATOR")=="CCUGULWBHCERYNHBVQVKUCAUAWUTFIVHUDGZISC")
+
+
 def main():
     unittest.main()
 

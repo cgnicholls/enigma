@@ -121,3 +121,12 @@ class Enigma:
         ciphered = self.apply_rotors(self.rotor_order[0], self.rotor_order[1], self.rotor_order[2], ciphered)
         ciphered = self.apply_steckerboard(self.stecker_dict, ciphered)
         return ciphered
+
+    def encrypt(self, text):
+        # note that text cannot have spaces
+        cipher_text = ""
+        for char in text:
+            cipher_text += self.cipher(char)
+
+        return cipher_text        
+        
