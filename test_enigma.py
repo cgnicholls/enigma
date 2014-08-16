@@ -55,38 +55,48 @@ class EnigmaTests(unittest.TestCase):
         self.assertTrue(enigma.add_to_letter("Y",9)=="H")
         self.assertTrue(enigma.add_to_letter("Z",9)=="I")
 
+        self.assertTrue(enigma.add_to_letter("A",-9)=="R")
+        self.assertTrue(enigma.add_to_letter("B",-9)=="S")
+        self.assertTrue(enigma.add_to_letter("C",-9)=="T")
+        self.assertTrue(enigma.add_to_letter("Y",-9)=="P")
+        self.assertTrue(enigma.add_to_letter("Z",-9)=="Q")
+
     def test_apply_rotor(self):
         enigma = Enigma(rotor_order="123", ring_setting="CSW", rotor_pos="AAA")
-        self.assertTrue(enigma.apply_rotor(3, "E", "A", "C")=="Q")
+        self.assertTrue(enigma.apply_rotor(3, "E", "A", "C")=="U")
         
         enigma = Enigma(rotor_order="123", ring_setting="AAA", rotor_pos="GBN")
-        self.assertTrue(enigma.apply_rotor(2, "A", "B", "X")=="O")
+        self.assertTrue(enigma.apply_rotor(2, "A", "B", "X")=="N")
 
         enigma = Enigma(rotor_order="234", ring_setting="BSK", rotor_pos="SXC")
-        self.assertTrue(enigma.apply_rotor(4, "K", "C", "D")=="D")
+        self.assertTrue(enigma.apply_rotor(4, "K", "C", "D")=="L")
 
     def test_apply_inverse_rotor(self):
         enigma = Enigma(rotor_order="123", ring_setting="CSW", rotor_pos="AAA")
-        self.assertTrue(enigma.apply_inverse_rotor(1, "C", "A", "F")=="G")
-
-        self.assertTrue(enigma.apply_inverse_rotor(1, "A", "A", "F")==inv_rotor[1]["F"])
+        self.assertTrue(enigma.apply_inverse_rotor(1, "C", "A", "F")=="I")
 
         enigma = Enigma(rotor_order="123", ring_setting="AAA", rotor_pos="NVE")
-        self.assertTrue(enigma.apply_inverse_rotor(3, "A", "E", "X")=="A")
+        self.assertTrue(enigma.apply_inverse_rotor(3, "A", "E", "X")=="W")
 
         enigma = Enigma(rotor_order="523", ring_setting="DSW", rotor_pos="BUA")
-        self.assertTrue(enigma.apply_inverse_rotor(5, "D", "B", "G")=="X")
+        self.assertTrue(enigma.apply_inverse_rotor(5, "D", "B", "G")=="Z")
 
     def test_apply_rotors(self):
         enigma = Enigma(rotor_order="123", rotor_pos="AAA")
         self.assertTrue(enigma.apply_rotors(1,2,3,"A")=="U")
 
+    def test_apply_rotors_settings(self):
+        enigma = Enigma(rotor_order="123", ring_setting="AAC", rotor_pos="AAB")
+
     def test_cipher(self):
-        enigma = Enigma(rotor_order="123", rotor_pos="AAA", plugs=["AB", "CD"])
+        enigma = Enigma(rotor_order="123", rotor_pos="AAZ", plugs=["AB", "CD"])
         self.assertTrue(enigma.cipher("B")=="U")
 
-        enigma = Enigma(rotor_order="123", rotor_pos="AAA", plugs=["AB", "CD", "UV"])
+        enigma = Enigma(rotor_order="123", rotor_pos="AAZ", plugs=["AB", "CD", "UV"])
         self.assertTrue(enigma.cipher("B")=="V")
+
+        enigma = Enigma(rotor_order="453", ring_setting="HYS", rotor_pos="CTY", plugs=["AB", "CD", "RQ", "FO", "HM", "JX", "UP", "ZS"])
+        self.assertTrue(enigma.cipher("J")=="W")
 
 def main():
     unittest.main()

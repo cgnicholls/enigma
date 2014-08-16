@@ -97,6 +97,7 @@ class Enigma:
 
         ciphered = self.add_to_letter(plaintext_character, increase)
         ciphered = rotor[rotor_num][ciphered]
+        ciphered = self.add_to_letter(ciphered, -increase)
         return ciphered
 
     def apply_inverse_rotor(self, rotor_num, ring_setting, rotor_pos, plaintext_character):
@@ -108,12 +109,14 @@ class Enigma:
         
         ciphered = self.add_to_letter(plaintext_character, increase)
         ciphered = inv_rotor[rotor_num][ciphered]
+        ciphered = self.add_to_letter(ciphered, -increase)
         return ciphered
 
     def apply_steckerboard(self, stecker_dict, plaintext_character):
         return stecker_dict[plaintext_character]
 
     def cipher(self, letter):
+        self.step_rotors()
         ciphered = self.apply_steckerboard(self.stecker_dict, letter)
         ciphered = self.apply_rotors(self.rotor_order[0], self.rotor_order[1], self.rotor_order[2], ciphered)
         ciphered = self.apply_steckerboard(self.stecker_dict, ciphered)
