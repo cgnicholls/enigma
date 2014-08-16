@@ -49,6 +49,9 @@ class Enigma:
     def increment_letter(self, letter):
         return chr((ord(letter)-65+1)%26+65)
 
+    def add_to_letter(self, letter, increase):
+        return chr((ord(letter)-65+increase)%26+65)
+
     def step_rotors_explicit(self, middle_notch, right_notch):
         # Increment right rotor
         step_middle = (self.rotor_pos[2] == right_notch)
