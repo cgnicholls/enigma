@@ -122,6 +122,18 @@ class Enigma:
         ciphered = self.apply_steckerboard(self.stecker_dict, ciphered)
         return ciphered
 
+    def print_with_spaces(self, text):
+        # prints a chunk of text (assumed to be without spaces) with spaces
+        # after every 5 characters
+        count = 0
+        for char in text:
+            print(char, end="")
+            count += 1
+            if (count % 5 == 0):
+                print(" ", end="")
+        print()
+
+
     def encrypt(self, text):
         # note that text cannot have spaces
         cipher_text = ""
