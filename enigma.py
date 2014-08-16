@@ -77,26 +77,37 @@ class Enigma:
     # Applies the given rotors
     def apply_rotors(self, left_rotor, middle_rotor, right_rotor, plaintext_character):
         # Letter passes through the rotors right to left
-        ciphered = rotor[right_rotor][plaintext_character]
-        ciphered = rotor[middle_rotor][ciphered]
-        ciphered = rotor[left_rotor][ciphered]
+        ciphered = self.apply_rotor(right_rotor, self.ring_setting[2], self.rotor_pos[2], plaintext_character)
+        ciphered = self.apply_rotor(middle_rotor, self.ring_setting[1], self.rotor_pos[1], ciphered)
+        ciphered = self.apply_rotor(left_rotor, self.ring_setting[0], self.rotor_pos[0], ciphered)
         # Passes through reflector
         ciphered = reflector[ciphered]
         # Passes through rotors left to right
-        ciphered = inv_rotor[left_rotor][ciphered]
-        ciphered = inv_rotor[middle_rotor][ciphered]
-        ciphered = inv_rotor[right_rotor][ciphered]
+        ciphered = self.apply_inverse_rotor(left_rotor, self.ring_setting[0], self.rotor_pos[0], ciphered)
+        ciphered = self.apply_inverse_rotor(middle_rotor, self.ring_setting[1], self.rotor_pos[1], ciphered)
+        ciphered = self.apply_inverse_rotor(right_rotor, self.ring_setting[2], self.rotor_pos[2], ciphered)  
         return ciphered
 
     def apply_rotor(self, rotor_num, ring_setting, rotor_pos, plaintext_character):
-        # calculate increase thanks to rotor position
-        increase_pos = ord(rotor_pos)-65
-        # calculate decrease thanks to ring setting
-        decrease_rs = ord(ring_setting)-65
-        increase = (increase_pos - decrease_rs)%26
+        # calculate change thanks to rotor position
+        change_pos = ord(rotor_pos)-65
+        # calculate change thanks to ring setting
+        change_setting = ord(ring_setting)-65
+        increase = (change_pos - change_setting)%26
 
         ciphered = self.add_to_letter(plaintext_character, increase)
         ciphered = rotor[rotor_num][ciphered]
+        return ciphered
+
+    def apply_inverse_rotor(self, rotor_num, ring_setting, rotor_pos, plaintext_character):
+        # calculate change thanks to rotor position
+        change_pos = ord(rotor_pos)-65
+        # calculate change thanks to ring setting
+        change_setting = ord(ring_setting)-65
+        increase = (change_pos - change_setting)%26
+        
+        ciphered = self.add_to_letter(plaintext_character, increase)
+        ciphered = inv_rotor[rotor_num][ciphered]
         return ciphered
 
     def apply_steckerboard(self, stecker_dict, plaintext_character):

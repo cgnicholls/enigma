@@ -65,6 +65,18 @@ class EnigmaTests(unittest.TestCase):
         enigma = Enigma(rotor_order="234", ring_setting="BSK", rotor_pos="SXC")
         self.assertTrue(enigma.apply_rotor(4, "K", "C", "D")=="D")
 
+    def test_apply_inverse_rotor(self):
+        enigma = Enigma(rotor_order="123", ring_setting="CSW", rotor_pos="AAA")
+        self.assertTrue(enigma.apply_inverse_rotor(1, "C", "A", "F")=="G")
+
+        self.assertTrue(enigma.apply_inverse_rotor(1, "A", "A", "F")==inv_rotor[1]["F"])
+
+        enigma = Enigma(rotor_order="123", ring_setting="AAA", rotor_pos="NVE")
+        self.assertTrue(enigma.apply_inverse_rotor(3, "A", "E", "X")=="A")
+
+        enigma = Enigma(rotor_order="523", ring_setting="DSW", rotor_pos="BUA")
+        self.assertTrue(enigma.apply_inverse_rotor(5, "D", "B", "G")=="X")
+
     def test_apply_rotors(self):
         enigma = Enigma(rotor_order="123", rotor_pos="AAA")
         self.assertTrue(enigma.apply_rotors(1,2,3,"A")=="U")
