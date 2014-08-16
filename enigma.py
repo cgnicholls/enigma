@@ -80,7 +80,6 @@ class Enigma:
         ciphered = inv_rotor[left_rotor][ciphered]
         ciphered = inv_rotor[middle_rotor][ciphered]
         ciphered = inv_rotor[right_rotor][ciphered]
-        c = 2
         return ciphered
 
     def apply_steckerboard(self, stecker_dict, plaintext_character):
