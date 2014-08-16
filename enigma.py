@@ -20,7 +20,7 @@ rotor[5] = {a:x for (a,x) in zip(alphabet, rotorlist5)}
 #rotor[7] = {a:x for (a,x) in zip(alphabet, rotorlist7)}
 #rotor[8] = {a:x for (a,x) in zip(alphabet, rotorlist8)}
 
-# Create the inverse dictionaries   
+# Create the inverse dictionaries
 inv_rotor = dict()
 for i in range(1, 6):
     inv_rotor[i] = {v:k for k, v in rotor[i].items()}
@@ -48,6 +48,9 @@ class Enigma:
     # i.e. A -> B, ..., Z -> A
     def increment_letter(self, letter):
         return chr((ord(letter)-65+1)%26+65)
+
+    def add_to_letter(self, letter, increase):
+        return chr((ord(letter)-65+increase)%26+65)
 
     def step_rotors_explicit(self, middle_notch, right_notch):
         # Increment right rotor
