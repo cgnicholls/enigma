@@ -2,7 +2,6 @@ import unittest
 from enigma import *
 
 class EnigmaTests(unittest.TestCase):
-
     def test_step_rotors(self):
         enigma = Enigma("123", "AAA")
         self.failUnless(enigma.rotor_pos==list("AAA"))
