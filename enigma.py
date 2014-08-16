@@ -20,7 +20,7 @@ rotor[5] = {a:x for (a,x) in zip(alphabet, rotorlist5)}
 #rotor[7] = {a:x for (a,x) in zip(alphabet, rotorlist7)}
 #rotor[8] = {a:x for (a,x) in zip(alphabet, rotorlist8)}
 
-# Create the inverse dictionaries
+# Create the inverse dictionaries   
 inv_rotor = dict()
 for i in range(1, 6):
     inv_rotor[i] = {v:k for k, v in rotor[i].items()}

@@ -2,6 +2,7 @@ import unittest
 from enigma import *
 
 class EnigmaTests(unittest.TestCase):
+
     def test_step_rotors(self):
         enigma = Enigma("123", "AAA")
         self.failUnless(enigma.rotor_pos==list("AAA"))
@@ -46,11 +47,13 @@ class EnigmaTests(unittest.TestCase):
         self.failUnless(enigma.apply_rotors(1,2,3,"A")=="U")
 
     def test_cipher(self):
+        # note this is without stepping
         enigma = Enigma("123", "AAA", ["AB", "CD"])
         self.failUnless(enigma.cipher("B")=="U")
 
         enigma = Enigma("123", "AAA", ["AB", "CD", "UV"])
         self.failUnless(enigma.cipher("B")=="V")
+
 
 def main():
     unittest.main()
