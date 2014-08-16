@@ -36,9 +36,12 @@ reflectorlist = list("YRUHQSLDPXNGOKMIEBFZCWVJAT")
 reflector = {a:x for (a,x) in zip(alphabet, reflectorlist)}
 
 class Enigma:
-    def __init__(self, rotor_order, rotor_pos, plugs = []):
+    def __init__(self, rotor_order, ring_setting = "AAA", rotor_pos = "AAA", plugs = []):
+        # note that rotor_pos should be of the form "GJD" 
+        # and ring_setting should be of the form "SNK"
         self.rotor_order = [int(x) for x in rotor_order]
         self.rotor_pos = list(rotor_pos)
+        self.ring_setting = list(ring_setting)
         self.stecker_dict = {a:a for a in alphabet}
         for plug in plugs:
             self.stecker_dict[plug[0]] = plug[1]
@@ -83,6 +86,17 @@ class Enigma:
         ciphered = inv_rotor[left_rotor][ciphered]
         ciphered = inv_rotor[middle_rotor][ciphered]
         ciphered = inv_rotor[right_rotor][ciphered]
+        return ciphered
+
+    def apply_rotor(self, rotor_num, ring_setting, rotor_pos, plaintext_character):
+        # calculate increase thanks to rotor position
+        increase_pos = ord(rotor_pos)-65
+        # calculate decrease thanks to ring setting
+        decrease_rs = ord(ring_setting)-65
+        increase = (increase_pos - decrease_rs)%26
+
+        ciphered = self.add_to_letter(plaintext_character, increase)
+        ciphered = rotor[rotor_num][ciphered]
         return ciphered
 
     def apply_steckerboard(self, stecker_dict, plaintext_character):
