@@ -5,26 +5,27 @@ class EnigmaTests(unittest.TestCase):
     def test_step_rotors(self):
         enigma = Enigma(rotor_order="123", rotor_pos="AAA")
         self.assertTrue(enigma.rotor_pos==list("AAA"))
-        enigma.step_rotors_explicit("D", "C")
-        self.assertTrue(enigma.rotor_pos==list("AAB"))
-        enigma.step_rotors_explicit("D", "C")
-        self.assertTrue(enigma.rotor_pos==list("AAC"))
-        enigma.step_rotors_explicit("D", "C")
-        self.assertTrue(enigma.rotor_pos==list("ABD"))
+        rotors = enigma.rotor_pos
+        rotors = enigma.step_rotors_explicit(rotors, "D", "C")
+        self.assertTrue(rotors==list("AAB"))
+        rotors = enigma.step_rotors_explicit(rotors, "D", "C")
+        self.assertTrue(rotors==list("AAC"))
+        rotors = enigma.step_rotors_explicit(rotors, "D", "C")
+        self.assertTrue(rotors==list("ABD"))
 
-        enigma.step_rotors_explicit("B", "F")
-        self.assertTrue(enigma.rotor_pos==list("BCE"))
-        enigma.step_rotors_explicit("B", "F")
-        self.assertTrue(enigma.rotor_pos==list("BCF"))
-        enigma.step_rotors_explicit("B", "F")
-        self.assertTrue(enigma.rotor_pos==list("BDG"))
-        enigma.step_rotors_explicit("B", "F")
-        self.assertTrue(enigma.rotor_pos==list("BDH"))
+        rotors = enigma.step_rotors_explicit(rotors, "B", "F")
+        self.assertTrue(rotors==list("BCE"))
+        rotors = enigma.step_rotors_explicit(rotors, "B", "F")
+        self.assertTrue(rotors==list("BCF"))
+        rotors = enigma.step_rotors_explicit(rotors, "B", "F")
+        self.assertTrue(rotors==list("BDG"))
+        rotors = enigma.step_rotors_explicit(rotors, "B", "F")
+        self.assertTrue(rotors==list("BDH"))
 
     def test_double_step(self):
         enigma = Enigma(rotor_order="321", rotor_pos="KER")
-        enigma.step_rotors_explicit("E", "Q")
-        self.assertTrue(enigma.rotor_pos==list("LFS"))
+        rotors = enigma.step_rotors_explicit(list("KER"), "E", "Q")
+        self.assertTrue(rotors==list("LFS"))
 
     def test_step_rotor_double(self):
         enigma = Enigma(rotor_order="321", rotor_pos="KDO")
