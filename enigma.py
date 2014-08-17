@@ -47,6 +47,10 @@ class Enigma:
             self.stecker_dict[plug[0]] = plug[1]
             self.stecker_dict[plug[1]] = plug[0]
 
+    @staticmethod
+    def stepping_point(rotor_index):
+        return stepping[rotor_index]
+
     # Cycles through capital letters in ascii.
     # i.e. A -> B, ..., Z -> A
     @staticmethod
